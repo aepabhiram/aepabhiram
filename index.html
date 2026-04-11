@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amrita Univ | Student Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 3D Canvas Background -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- UI Overlay -->
+    <main id="app">
+        <!-- Navigation -->
+        <nav class="glass-nav">
+            <div class="logo">AEP</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <button id="admin-trigger" class="admin-btn">Owner</button>
+            </div>
+        </nav>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title name-hover-target">
+                        <span class="line">AEP <span class="highlight">ABHIRAM</span></span>
+                    </h1>
+                    <p class="hero-subtitle">Student @ Amrita University, Kerala</p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn primary-btn">View My Knowledge</a>
+                    </div>
+                </div>
+                <div class="hero-photo">
+                    <img src="profile_pic.jpeg" alt="AEP Abhiram Photo" class="profile-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="projects-header">
+                <h2 class="section-title">My Skills</h2>
+                <!-- This button is only visible to authenticated owners -->
+                <button id="add-skill-btn" class="btn secondary-btn hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Category
+                </button>
+            </div>
+            <div id="skills-grid" class="skills-container">
+                <!-- Skill categories will be injected here via JS -->
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="projects-header">
+                <h2 class="section-title">My Projects</h2>
+                <!-- This button is only visible to authenticated owners -->
+                <button id="add-project-btn" class="btn secondary-btn hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Project
+                </button>
+            </div>
+
+            <div id="projects-grid" class="projects-grid">
+                <!-- Project cards will be injected here via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <button class="close-modal">&times;</button>
+            <h3>Owner Access</h3>
+            <p>Enter the master password to unlock editing.</p>
+            <input type="password" id="password-input" placeholder="Password" autocomplete="off">
+            <p id="auth-error" class="error-text hidden">Incorrect password</p>
+            <button id="login-submit" class="btn primary-btn">Verify</button>
+        </div>
+    </div>
+
+    <!-- Add/Edit Skill Modal -->
+    <div id="skill-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <button class="close-modal">&times;</button>
+            <h3 id="skill-modal-title">Add Skill Category</h3>
+            <form id="skill-form">
+                <input type="hidden" id="skill-id">
+                <div class="form-group">
+                    <label>Category Title</label>
+                    <input type="text" id="skill-category-input" required placeholder="E.g., Frontend">
+                </div>
+                <div class="form-group">
+                    <label>Skills (comma separated)</label>
+                    <textarea id="skill-tags-input" required rows="3" placeholder="HTML, CSS, JavaScript"></textarea>
+                </div>
+                <button type="submit" class="btn primary-btn">Save Category</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Project Modal -->
+    <div id="project-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <button class="close-modal">&times;</button>
+            <h3 id="modal-title">Add Project</h3>
+            <form id="project-form">
+                <input type="hidden" id="project-id">
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" id="project-title-input" required placeholder="E.g., AI Face Recognition">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="project-desc-input" required rows="3"
+                        placeholder="Briefly describe your project..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" id="project-tags-input" placeholder="React, Node, AI">
+                </div>
+                <button type="submit" class="btn primary-btn">Save Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Libraries via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
