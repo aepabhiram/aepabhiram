@@ -492,16 +492,90 @@ textarea:focus {
     margin-bottom: 1rem !important;
 }
 
+@media (max-width: 992px) {
+    .hero-container {
+        gap: 2rem;
+    }
+    .hero-title {
+        font-size: 4rem;
+    }
+    .section {
+        padding: 7rem 3rem 3rem;
+    }
+}
+
 @media (max-width: 768px) {
     .glass-nav {
-        padding: 1rem 2rem;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .section {
-        padding: 6rem 2rem 2rem;
+        padding: 9rem 2rem 2rem;
+    }
+
+    .hero-container {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    /* On mobile, hover doesn't exist, so always show the photo cleanly */
+    .hero-photo {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        margin-bottom: 1rem;
     }
 
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .projects-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.85rem;
+    }
+    
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .glass-panel {
+        padding: 1.5rem;
     }
 }
